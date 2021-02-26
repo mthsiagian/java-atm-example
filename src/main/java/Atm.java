@@ -10,13 +10,14 @@ public class Atm {
 
     private final static int WITHDRAW = 1;
     private final static int FUND_TRANSFER = 2;
+    private final static int TRANSACTION_HISTORY = 3;
 
 
     public Atm(){
-        userAuthenticated = false;
-        screen = new Screen();
         bank = new Bank();
+        screen = new Screen();
         keypad = new Keypad();
+        userAuthenticated = false;
     }
 
     public void run() {
@@ -47,14 +48,19 @@ public class Atm {
             case WITHDRAW:
                 Withdraw withdraw = new Withdraw(bank, screen, keypad, userAccountNo);
                 withdraw.execute();
+                bank.saveTransaction(withdraw.getTransactionDetail());
                 continueTransaction(withdraw.isExitStatus());
                 break;
             case FUND_TRANSFER:
                 FundTransfer transfer = new FundTransfer(bank, screen, keypad, userAccountNo);
                 transfer.execute();
+                bank.saveTransaction(transfer.getTransactionDetail());
                 continueTransaction(transfer.isExitStatus());
                 break;
-            case 3:
+            case TRANSACTION_HISTORY:
+                bank.displayTransactionHistory(userAccountNo);
+                continueTransaction(false);
+            case 4:
                 userAuthenticated = false;
                 run();
                 break;

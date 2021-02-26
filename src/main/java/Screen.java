@@ -24,7 +24,8 @@ public class Screen {
         displayMessageLine("\n[+] Main Menu [+]");
         displayMessageLine("[1] - Withdraw");
         displayMessageLine("[2] - Fund Transfer");
-        displayMessageLine("[3] - Exit");
+        displayMessageLine("[3] - Transaction History");
+        displayMessageLine("[4] - Exit");
         displayMessage("[?] Input menu : ");
     }
 
@@ -43,8 +44,8 @@ public class Screen {
         displayMessage("[?] - Enter amount to withdraw : ");
     }
 
-    public void displayWithdrawSummary(double withdrawAmount, double availableBalance){
-        displayMessageLine("\nDate        :" + new Date().toString());
+    public void displayWithdrawSummary(double withdrawAmount, double availableBalance, Date transactionDate){
+        displayMessageLine("\nDate        :" + transactionDate.toString());
         displayMessageLine("Withdraw    :" + formatDollar(withdrawAmount));
         displayMessageLine("Balance     :" + formatDollar(availableBalance));
     }
@@ -72,7 +73,7 @@ public class Screen {
         displayMessageLine("Reference Number : " +refNo);
 
         displayMessageLine("\n[1] - Confirm Trx");
-        displayMessageLine("[2] - Cancel Trx :");
+        displayMessageLine("[2] - Cancel Trx");
         displayMessage("[?] Input Option [2] :");
     }
 
@@ -87,7 +88,7 @@ public class Screen {
 
     public void displayAnotherTransaction() {
         displayMessageLine("\n[1] - Transaction");
-        displayMessageLine("[2] - Exit:");
+        displayMessageLine("[2] - Exit");
         displayMessage("[?] Input menu : ");
     }
 }
