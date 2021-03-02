@@ -1,6 +1,6 @@
 package main.java;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Random;
 
@@ -11,7 +11,7 @@ public class FundTransfer {
     private Account sourceAccount, destinationAccount;
     private boolean exitStatus;
     private double minimumTransfer, maximumTransfer, amount;
-    private Date date;
+    private LocalDateTime date;
 
     public FundTransfer(Bank bank, Screen screen, Keypad keypad, int accountNumber){
         this.bank = bank;
@@ -50,15 +50,10 @@ public class FundTransfer {
         screen.displayConfirmFundTransfer(destinationAccountNo, strAmount, referenceNumber);
         String inputMenu = keypad.getNextLine();
 
-        switch (inputMenu) {
-            case "1":
-                continueTransfer(destinationAccountNo, strAmount, referenceNumber);
-                this.exitStatus = true;
-                break;
-            default:
-                this.exitStatus = true;
-                break;
+        if(inputMenu.equals("1")) {
+            continueTransfer(destinationAccountNo, strAmount, referenceNumber);
         }
+        this.exitStatus = true;
     }
 
     private void continueTransfer(String destinationAccountNo, String strAmount, int referenceNo){
@@ -90,7 +85,7 @@ public class FundTransfer {
 
             sourceAccount.debit(amount);
             destinationAccount.credit(amount);
-            date = new Date();
+            date = LocalDateTime.now();
             screen.displayFundTransferSummary(sourceAccount, destinationAccount, referenceNo, amount);
         } catch (InputMismatchException e) {
             screen.displayMessageLine(e.getMessage());
@@ -114,12 +109,12 @@ public class FundTransfer {
 
     public Transaction getTransactionDetail(){
         Transaction Th = new Transaction();
+        date = LocalDateTime.now();
         Th.setType("FUND_TRANSFER");
         Th.setSourceAccount(sourceAccount.getAccountNumber());
         Th.setTransactionDate(date);
         Th.setAmount(amount);
         return Th;
-
     }
 
     public boolean isExitStatus() {

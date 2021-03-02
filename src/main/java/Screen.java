@@ -1,5 +1,7 @@
 package main.java;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Screen {
@@ -44,7 +46,7 @@ public class Screen {
         displayMessage("[?] - Enter amount to withdraw : ");
     }
 
-    public void displayWithdrawSummary(double withdrawAmount, double availableBalance, Date transactionDate){
+    public void displayWithdrawSummary(double withdrawAmount, double availableBalance, LocalDateTime transactionDate){
         displayMessageLine("\nDate        :" + transactionDate.toString());
         displayMessageLine("Withdraw    :" + formatDollar(withdrawAmount));
         displayMessageLine("Balance     :" + formatDollar(availableBalance));

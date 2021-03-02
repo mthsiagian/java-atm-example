@@ -1,5 +1,7 @@
 package main.java;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Withdraw {
@@ -8,7 +10,7 @@ public class Withdraw {
     private Keypad keypad;
     private Account account;
     private double amount;
-    private Date date;
+    private LocalDateTime date;
     private boolean exitStatus;
 
 
@@ -65,6 +67,7 @@ public class Withdraw {
 
     public Transaction getTransactionDetail(){
         Transaction Th = new Transaction();
+        date = LocalDateTime.now();
         Th.setType("WITHDRAWAL");
         Th.setTransactionDate(date);
         Th.setSourceAccount(account.getAccountNumber());
@@ -74,7 +77,7 @@ public class Withdraw {
 
     private void transaction(double amount){
         double accountBalance = account.getAvailableBalance();
-        date = new Date();
+        date = LocalDateTime.now();
         if(accountBalance >= amount) {
             account.debit(amount);
             screen.displayWithdrawSummary(amount, account.getAvailableBalance(), date);

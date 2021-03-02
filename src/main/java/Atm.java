@@ -54,12 +54,13 @@ public class Atm {
             case FUND_TRANSFER:
                 FundTransfer transfer = new FundTransfer(bank, screen, keypad, userAccountNo);
                 transfer.execute();
-                bank.saveTransaction(transfer.getTransactionDetail());
+                    bank.saveTransaction(transfer.getTransactionDetail());
                 continueTransaction(transfer.isExitStatus());
                 break;
             case TRANSACTION_HISTORY:
                 bank.displayTransactionHistory(userAccountNo);
                 continueTransaction(false);
+                break;
             case 4:
                 userAuthenticated = false;
                 run();
@@ -82,14 +83,11 @@ public class Atm {
             screen.displayAnotherTransaction();
             int inputMenu = keypad.getInput();
 
-            switch (inputMenu) {
-                case 1:
-                    transaction();
-                    break;
-                default:
-                    userAuthenticated = false;
-                    run();
-                    break;
+            if(inputMenu == 1) {
+                transaction();
+            }else {
+                userAuthenticated = false;
+                run();
             }
         }
     }

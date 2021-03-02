@@ -1,12 +1,12 @@
 package main.java;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Transaction {
     private int sourceAccount;
     private double amount;
     private String type;
-    private Date date;
+    private LocalDateTime date;
 
     public Transaction(){
         this.sourceAccount = 0;
@@ -38,11 +38,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public Date getTransactionDate() {
+    public LocalDateTime getTransactionDate() {
         return date;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(LocalDateTime transactionDate) {
         this.date = transactionDate;
     }
 }

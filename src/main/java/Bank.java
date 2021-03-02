@@ -16,7 +16,7 @@ public class Bank {
     public Bank(){
         String dataPath = "data/account.csv";
         try (Stream<String> lines = Files.lines(Paths.get(dataPath))) {
-            List<String> accs = new ArrayList<String>();
+            List<String> accs = new ArrayList<>();
             accounts = lines
                     .map(line -> {
                         List<String> arr = Arrays.asList(line.split(","));
@@ -37,14 +37,13 @@ public class Bank {
                                 Integer.parseInt(arr.get(3))
                         );
                     })
-                    .limit(20)
                     .collect(Collectors.toList());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        transactions = new ArrayList<Transaction>();
+        transactions = new ArrayList<>();
     }
 
     public Account getAccount(int accountNumber) {
@@ -58,7 +57,7 @@ public class Bank {
 
     public boolean authenticateAccount(int accountNumber, int pin) {
         Account existAcc = getAccount(accountNumber);
-        return existAcc != null ? existAcc.validatePin(pin) : false;
+        return existAcc != null && existAcc.validatePin(pin);
     }
 
     public void displayTransactionHistory(int userAccountNumber){
