@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.com.cdc.atm.model.Screen;
+
 public class Validation {
     private Screen screen;
     private String input;

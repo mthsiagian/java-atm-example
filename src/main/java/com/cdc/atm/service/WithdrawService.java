@@ -1,7 +1,7 @@
 package main.java.com.cdc.atm.service;
 
-import main.java.Keypad;
-import main.java.Screen;
+import main.java.com.cdc.atm.model.Keypad;
+import main.java.com.cdc.atm.model.Screen;
 import main.java.com.cdc.atm.model.Account;
 import main.java.com.cdc.atm.model.Transaction;
 

@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.com.cdc.atm.model.Keypad;
+import main.java.com.cdc.atm.model.Screen;
 import main.java.com.cdc.atm.service.BankService;
 import main.java.com.cdc.atm.service.FundTransferService;
 import main.java.com.cdc.atm.service.WithdrawService;
@@ -58,7 +60,7 @@ public class Atm {
             case FUND_TRANSFER:
                 FundTransferService transfer = new FundTransferService(bankService, screen, keypad, userAccountNo);
                 transfer.execute();
-                    bankService.saveTransaction(transfer.getTransactionDetail());
+                bankService.saveTransaction(transfer.getTransactionDetail());
                 continueTransaction(transfer.isExitStatus());
                 break;
             case TRANSACTION_HISTORY:
@@ -76,7 +78,12 @@ public class Atm {
     }
 
     private int inputMainMenu() {
-        screen.displayMainMenu();
+        screen.displayMessageLine("\n[+] Main Menu [+]");
+        screen.displayMessageLine("[1] - Withdraw");
+        screen.displayMessageLine("[2] - Fund Transfer");
+        screen.displayMessageLine("[3] - Transaction History");
+        screen.displayMessageLine("[4] - Exit");
+        screen.displayMessage("[?] Input menu : ");
         return keypad.getInput();
     }
 
