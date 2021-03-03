@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,13 +47,11 @@ public class AccountRepository {
     }
 
     public Account getAccount(int accountNumber) {
-        for (Account account: accounts) {
-            if(account.getAccountNumber() == accountNumber){
-                return account;
-            }
-        }
-        return null;
+        Optional<Account> account =  accounts
+                .stream()
+                .filter(acc -> acc.getAccountNumber() == accountNumber)
+                .findFirst();
+        return account.orElse(null);
     }
-
 
 }
