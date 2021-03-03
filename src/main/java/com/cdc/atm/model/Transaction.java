@@ -1,4 +1,4 @@
-package main.java;
+package main.java.com.cdc.atm.model;
 
 import java.time.LocalDateTime;
 

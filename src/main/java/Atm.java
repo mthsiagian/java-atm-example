@@ -1,8 +1,12 @@
 package main.java;
 
+import main.java.com.cdc.atm.service.BankService;
+import main.java.com.cdc.atm.service.FundTransferService;
+import main.java.com.cdc.atm.service.WithdrawService;
+
 public class Atm {
     private Screen screen;
-    private Bank bank;
+    private BankService bankService;
     private Keypad keypad;
     private boolean userAuthenticated;
     private int userAccountNo;
@@ -14,7 +18,7 @@ public class Atm {
 
 
     public Atm(){
-        bank = new Bank();
+        bankService = new BankService();
         screen = new Screen();
         keypad = new Keypad();
         userAuthenticated = false;
@@ -34,7 +38,7 @@ public class Atm {
         screen.displayMessage("Enter PIN: ");
         int pin = keypad.getCredentialInput("PIN", 6);
 
-        userAuthenticated = bank.authenticateAccount(accNo, pin);
+        userAuthenticated = bankService.authenticateAccount(accNo, pin);
         if(userAuthenticated) {
             userAccountNo = accNo;
         } else {
@@ -46,19 +50,19 @@ public class Atm {
         int inputMenu = inputMainMenu();
         switch (inputMenu){
             case WITHDRAW:
-                Withdraw withdraw = new Withdraw(bank, screen, keypad, userAccountNo);
+                WithdrawService withdraw = new WithdrawService(bankService, screen, keypad, userAccountNo);
                 withdraw.execute();
-                bank.saveTransaction(withdraw.getTransactionDetail());
+                bankService.saveTransaction(withdraw.getTransactionDetail());
                 continueTransaction(withdraw.isExitStatus());
                 break;
             case FUND_TRANSFER:
-                FundTransfer transfer = new FundTransfer(bank, screen, keypad, userAccountNo);
+                FundTransferService transfer = new FundTransferService(bankService, screen, keypad, userAccountNo);
                 transfer.execute();
-                    bank.saveTransaction(transfer.getTransactionDetail());
+                    bankService.saveTransaction(transfer.getTransactionDetail());
                 continueTransaction(transfer.isExitStatus());
                 break;
             case TRANSACTION_HISTORY:
-                bank.displayTransactionHistory(userAccountNo);
+                bankService.displayTransactionHistory(userAccountNo);
                 continueTransaction(false);
                 break;
             case 4:
@@ -85,7 +89,7 @@ public class Atm {
 
             if(inputMenu == 1) {
                 transaction();
-            }else {
+            } else {
                 userAuthenticated = false;
                 run();
             }
