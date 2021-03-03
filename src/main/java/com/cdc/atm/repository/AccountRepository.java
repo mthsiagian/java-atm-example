@@ -17,7 +17,19 @@ public class AccountRepository {
 
     public AccountRepository(){
         String dataPath = "data/account.csv";
-        try(Stream<String> lines = Files.lines(Paths.get(dataPath))) {
+        this.initiateAccount(dataPath);
+    }
+
+    public Account getAccount(int accountNumber) {
+        Optional<Account> account =  accounts
+                .stream()
+                .filter(acc -> acc.getAccountNumber() == accountNumber)
+                .findFirst();
+        return account.orElse(null);
+    }
+
+    private void initiateAccount(String path){
+        try(Stream<String> lines = Files.lines(Paths.get(path))) {
             List<String> acc = new ArrayList<>();
             accounts = lines
                     .map(line -> {
@@ -44,14 +56,6 @@ public class AccountRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public Account getAccount(int accountNumber) {
-        Optional<Account> account =  accounts
-                .stream()
-                .filter(acc -> acc.getAccountNumber() == accountNumber)
-                .findFirst();
-        return account.orElse(null);
     }
 
 }
