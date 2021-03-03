@@ -54,13 +54,11 @@ public class Atm {
             case WITHDRAW:
                 WithdrawService withdraw = new WithdrawService(bankService, screen, keypad, userAccountNo);
                 withdraw.execute();
-                bankService.saveTransaction(withdraw.getTransactionDetail());
                 continueTransaction(withdraw.isExitStatus());
                 break;
             case FUND_TRANSFER:
                 FundTransferService transfer = new FundTransferService(bankService, screen, keypad, userAccountNo);
                 transfer.execute();
-                bankService.saveTransaction(transfer.getTransactionDetail());
                 continueTransaction(transfer.isExitStatus());
                 break;
             case TRANSACTION_HISTORY:

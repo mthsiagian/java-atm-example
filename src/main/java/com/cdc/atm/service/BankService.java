@@ -5,17 +5,19 @@ import main.java.com.cdc.atm.model.Transaction;
 import main.java.com.cdc.atm.repository.AccountRepository;
 import main.java.com.cdc.atm.repository.TransactionRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public class BankService {
     private AccountRepository accountRepository;
     private TransactionRepository transactionRepository;
-    private List<Account> accounts;
-    private List<Transaction> transactions;
 
     public BankService(){
         accountRepository = new AccountRepository();
         transactionRepository = new TransactionRepository();
+    }
+
+    public Account getAccount(int accountNumber){
+        return accountRepository.getAccount(accountNumber);
     }
 
     public boolean authenticateAccount(int accountNumber, int pin) {
@@ -25,10 +27,6 @@ public class BankService {
 
     public void displayTransactionHistory(int accountNumber){
         this.transactionRepository.getTransactions(accountNumber);
-    }
-
-    public Account getAccount(int accountNumber){
-        return accountRepository.getAccount(accountNumber);
     }
 
     public void saveTransaction(Transaction transaction){

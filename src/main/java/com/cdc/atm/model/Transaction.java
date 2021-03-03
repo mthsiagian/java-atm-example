@@ -3,13 +3,14 @@ package main.java.com.cdc.atm.model;
 import java.time.LocalDateTime;
 
 public class Transaction {
-    private int sourceAccount;
+    private int sourceAccount, destinationAccount;
     private double amount;
     private String type;
     private LocalDateTime date;
 
     public Transaction(){
         this.sourceAccount = 0;
+        this.destinationAccount = 0;
         this.amount = 0;
         this.type = "";
     }
@@ -44,5 +45,21 @@ public class Transaction {
 
     public void setTransactionDate(LocalDateTime transactionDate) {
         this.date = transactionDate;
+    }
+
+    public int getDestinationAccount() {
+        return destinationAccount;
+    }
+
+    public void setDestinationAccount(int destinationAccount) {
+        this.destinationAccount = destinationAccount;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }

@@ -83,6 +83,7 @@ public class WithdrawService {
         date = LocalDateTime.now();
         if(accountBalance >= amount) {
             account.debit(amount);
+            bankService.saveTransaction(this.getTransactionDetail());
             screen.displayWithdrawSummary(amount, account.getAvailableBalance(), date);
         } else {
             screen.displayMessageLine("Insufficient balance "+ accountBalance);

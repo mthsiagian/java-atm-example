@@ -16,7 +16,10 @@ public class TransactionRepository {
     public void getTransactions(int accountNumber){
         transactions
                 .stream()
-                .filter(t -> accountNumber == t.getSourceAccount())
+                .filter(t ->
+                        accountNumber == t.getSourceAccount() ||
+                        accountNumber == t.getDestinationAccount()
+                )
                 .sorted((t1, t2) -> t2.getTransactionDate().compareTo(t1.getTransactionDate()))
                 .limit(10)
                 .forEach(p -> System.out.println(p.getSourceAccount()+ " " + p.getType()+ " " + p.getAmount()+ " " + p.getTransactionDate()));

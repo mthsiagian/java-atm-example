@@ -90,7 +90,7 @@ public class FundTransferService {
 
             sourceAccount.debit(amount);
             destinationAccount.credit(amount);
-            date = LocalDateTime.now();
+            bankService.saveTransaction(this.getTransactionDetail());
             screen.displayFundTransferSummary(sourceAccount, destinationAccount, referenceNo, amount);
         } catch (InputMismatchException e) {
             screen.displayMessageLine(e.getMessage());
@@ -117,6 +117,7 @@ public class FundTransferService {
         date = LocalDateTime.now();
         Th.setType("FUND_TRANSFER");
         Th.setSourceAccount(sourceAccount.getAccountNumber());
+        Th.setDestinationAccount(destinationAccount.getAccountNumber());
         Th.setTransactionDate(date);
         Th.setAmount(amount);
         return Th;
