@@ -89,7 +89,9 @@ public class Atm {
         if(status) {
             transaction();
         } else {
-            screen.displayAnotherTransaction();
+            screen.displayMessageLine("\n[1] - Transaction");
+            screen.displayMessageLine("[2] - Exit");
+            screen.displayMessage("[?] Input menu : ");
             int inputMenu = keypad.getInput();
 
             if(inputMenu == 1) {

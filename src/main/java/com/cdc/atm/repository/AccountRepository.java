@@ -17,7 +17,7 @@ public class AccountRepository {
 
     public AccountRepository(){
         String dataPath = "data/account.csv";
-        this.initiateAccount(dataPath);
+        this.getAccounts(dataPath);
     }
 
     public Account getAccount(int accountNumber) {
@@ -28,7 +28,7 @@ public class AccountRepository {
         return account.orElse(null);
     }
 
-    private void initiateAccount(String path){
+    private void getAccounts(String path){
         try(Stream<String> lines = Files.lines(Paths.get(path))) {
             List<String> acc = new ArrayList<>();
             accounts = lines

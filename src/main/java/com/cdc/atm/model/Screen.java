@@ -78,10 +78,4 @@ public class Screen {
         displayMessageLine("Balance : " + sourceAccount.getAvailableBalance());
 
     }
-
-    public void displayAnotherTransaction() {
-        displayMessageLine("\n[1] - Transaction");
-        displayMessageLine("[2] - Exit");
-        displayMessage("[?] Input menu : ");
-    }
 }

@@ -28,7 +28,7 @@ public class FundTransferService {
         this.maximumTransfer = 1000;
     }
 
-    public void  execute() {
+    public void execute() {
         keypad.getNextLine();
 
         screen.displayFundTransferMenu();
