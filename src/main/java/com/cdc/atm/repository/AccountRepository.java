@@ -5,19 +5,19 @@ import main.java.com.cdc.atm.model.Account;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AccountRepository {
     private List<Account> accounts;
+    private final String defaultPath = "data/account.csv";
 
     public AccountRepository(){
-        String dataPath = "data/account.csv";
-        this.getAccounts(dataPath);
+        String inputPath = System.getenv("testFile");
+        String path = inputPath == null ? defaultPath : inputPath;
+
+        this.getAccounts(path);
     }
 
     public Account getAccount(int accountNumber) {
