@@ -4,6 +4,7 @@ import main.java.com.cdc.atm.model.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionRepository {
     private List<Transaction> transactions;
@@ -13,8 +14,8 @@ public class TransactionRepository {
         transactions = new ArrayList<>();
     }
 
-    public void getTransactions(int accountNumber){
-        transactions
+    public List<Transaction> getTransactions(int accountNumber){
+        return transactions
                 .stream()
                 .filter(t ->
                         accountNumber == t.getSourceAccount() ||
@@ -22,7 +23,7 @@ public class TransactionRepository {
                 )
                 .sorted((t1, t2) -> t2.getTransactionDate().compareTo(t1.getTransactionDate()))
                 .limit(10)
-                .forEach(p -> System.out.println(p.getSourceAccount()+ " " + p.getType()+ " " + p.getAmount()+ " " + p.getTransactionDate()));
+                .collect(Collectors.toList());
     }
 
     public void save(Transaction transaction){

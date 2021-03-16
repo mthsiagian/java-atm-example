@@ -3,6 +3,7 @@ package main.java.com.cdc.atm.repository;
 import main.java.com.cdc.atm.model.Account;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -11,13 +12,17 @@ import java.util.stream.Stream;
 
 public class AccountRepository {
     private List<Account> accounts;
-    private final String defaultPath = "data/account.csv";
+    private final String defaultPath = FileSystems
+            .getDefault()
+            .getPath("data/account.csv")
+            .toAbsolutePath()
+            .toString();
 
     public AccountRepository(){
-        String inputPath = System.getenv("testFile");
+        String inputPath = System.getenv("ENV_ACC_PATH");
         String path = inputPath == null ? defaultPath : inputPath;
 
-        this.getAccounts(path);
+        this.initiateAccounts(path);
     }
 
     public Account getAccount(int accountNumber) {
@@ -28,7 +33,7 @@ public class AccountRepository {
         return account.orElse(null);
     }
 
-    private void getAccounts(String path){
+    private void initiateAccounts(String path){
         try(Stream<String> lines = Files.lines(Paths.get(path))) {
             List<String> acc = new ArrayList<>();
             accounts = lines

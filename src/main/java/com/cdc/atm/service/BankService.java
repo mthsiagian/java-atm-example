@@ -5,7 +5,7 @@ import main.java.com.cdc.atm.model.Transaction;
 import main.java.com.cdc.atm.repository.AccountRepository;
 import main.java.com.cdc.atm.repository.TransactionRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 public class BankService {
     private AccountRepository accountRepository;
@@ -26,7 +26,8 @@ public class BankService {
     }
 
     public void displayTransactionHistory(int accountNumber){
-        this.transactionRepository.getTransactions(accountNumber);
+        List<Transaction> transactions = this.transactionRepository.getTransactions(accountNumber);
+        transactions.forEach(System.out::println);
     }
 
     public void saveTransaction(Transaction transaction){

@@ -55,11 +55,14 @@ public class Transaction {
         this.destinationAccount = destinationAccount;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "sourceAccount=" + sourceAccount +
+                ", destinationAccount=" + destinationAccount +
+                ", amount=" + amount +
+                ", type='" + type + '\'' +
+                ", date=" + date +
+                '}';
     }
 }

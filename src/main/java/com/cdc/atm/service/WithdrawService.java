@@ -8,10 +8,10 @@ import main.java.com.cdc.atm.model.Transaction;
 import java.time.LocalDateTime;
 
 public class WithdrawService {
-    private BankService bankService;
-    private Screen screen;
-    private Keypad keypad;
-    private Account account;
+    private final BankService bankService;
+    private final Screen screen;
+    private final Keypad keypad;
+    private final Account account;
     private double amount;
     private LocalDateTime date;
     private boolean exitStatus;
@@ -59,12 +59,19 @@ public class WithdrawService {
     }
 
     private int getWithdrawalMenu() {
-        screen.displayWithdrawMenu();
+        screen.displayMessageLine("\n[+] Withdraw Menu [+]");
+        screen.displayMessageLine("[1] - $10");
+        screen.displayMessageLine("[2] - $50");
+        screen.displayMessageLine("[3] - $100");
+        screen.displayMessageLine("[4] - Other");
+        screen.displayMessageLine("[5] - Back");
+        screen.displayMessage("[?] Input menu : ");
         return keypad.getInput();
     }
 
     private double getOtherWithdrawalMenu() {
-        screen.displayOtherWithdrawMenu();
+        screen.displayMessageLine("\n[+] Other withdraw  [+]");
+        screen.displayMessage("[?] - Enter amount to withdraw : ");
         return keypad.getInputDouble();
     }
 
@@ -84,9 +91,16 @@ public class WithdrawService {
         if(accountBalance >= amount) {
             account.debit(amount);
             bankService.saveTransaction(this.getTransactionDetail());
-            screen.displayWithdrawSummary(amount, account.getAvailableBalance(), date);
+
+            displayWithdrawSummary(amount, account.getAvailableBalance(), date);
         } else {
             screen.displayMessageLine("Insufficient balance "+ accountBalance);
         }
+    }
+
+    private void displayWithdrawSummary(double withdrawAmount, double availableBalance, LocalDateTime transactionDate){
+        screen.displayMessageLine("\nDate        :" + transactionDate);
+        screen.displayMessageLine("Withdraw    :" + withdrawAmount);
+        screen.displayMessageLine("Balance     :" + availableBalance);
     }
 }
